@@ -6,14 +6,12 @@ import {Script} from "forge-std/Script.sol";
 import {Governance} from "../src/InterestRateGovernance.sol";
 
 contract DeployGovernance is Script {
+    Governance public governanceContract;
 
-  Governance public governanceContract;
+    function setUp() public {}
 
-  function setUp() public {}
-
-  function run() public {
-    vm.broadcast();
-    governanceContract = new Governance(3_000);
-  }
-
+    function run() public {
+        vm.broadcast();
+        governanceContract = new Governance(3_000);
+    }
 }

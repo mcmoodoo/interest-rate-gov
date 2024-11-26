@@ -6,14 +6,14 @@ contract Governance {
     uint256 private interestRate;
 
     constructor(uint256 initialRate) {
-      interestRate = initialRate;
+        interestRate = initialRate;
     }
 
     function getInterestRate() public view returns (uint256) {
-      return interestRate;
+        return interestRate;
     }
 
     function setInterestRate(uint256 newRate) public {
-      interestRate = newRate;
+        interestRate = newRate;
     }
 }
