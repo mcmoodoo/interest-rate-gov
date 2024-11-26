@@ -13,7 +13,7 @@ contract GovernanceTest is Test {
   }
 
   function test_gettingRate() public view {
-    assertEq(governance.getInterestRate(), 33);
+    assertEq(governance.getInterestRate(), 333);
   }
 
 }
