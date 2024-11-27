@@ -17,4 +17,6 @@ So, the plan is to build a simple contract with:
 4. Done that. I can set the rate with `setInterestRate()` and then retrieve/get the value by calling `getInterestRate()`
 5. Now, I need to scan for token holders, so only allow access to the function call to those who hold this specific ERC20 token! Let's look into the specification of ERC20!
 6. Either way, I will need OpenZeppelin's or Solmate's ERC20 implementation from which to inherit, right? Let's try to import one of those into the project!
-
+7. I ended up using OpenZeppelin's ERC20. I was able to set the supply by minting to individual accounts, right? Let's check... Confirmed! The total supply adds up all the individually-minted amounts
+8. Now, let's check if anvil addresses are consecutive and then let's create a function `voteForInterestRate(uint256)` that will accept an interest rate from an address only if the address is a GOV token holder! That's getting a bit more interesting
+9. 
