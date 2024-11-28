@@ -5,8 +5,11 @@ pragma solidity ^0.8.24;
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract GovernanceToken is ERC20 {
-  constructor() ERC20("Governance", "GOV") {
-    _mint(address(this), 100);
-    _mint(_msgSender(), 19);
-  }
+    constructor(address[] memory holders) ERC20("Governance", "GOV") {
+        for (uint256 index = 0; index < holders.length; index++) {
+            _mint(holders[index], 743);
+        }
+        _mint(_msgSender(), 1993);
+        _mint(address(this), 93);
+    }
 }
