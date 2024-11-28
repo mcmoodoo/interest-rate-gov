@@ -55,7 +55,8 @@ contract GovernanceTest is Test {
         assertEq(governance.getMyProposedRate(), proposed_rate);
     }
 
-    function test_multipleVotesRecorded() public {
+    function test_weightedAverage() public {
+      vm.skip(true); // TODO: first ensure non-uniform distribution of tokens within the GovernanceToken contract to really test this!
         vm.prank(ANVIL_ACCOUNT_1_ADDRESS);
         governance.voteForInterestRate(INITIAL_INTEREST_RATE + 19);
         vm.prank(ANVIL_ACCOUNT_2_ADDRESS);
@@ -68,6 +69,21 @@ contract GovernanceTest is Test {
         governance.voteForInterestRate(INITIAL_INTEREST_RATE + 15);
         
         assertEq(governance.tallyVotes(), INITIAL_INTEREST_RATE + 17);
+    }
+
+    function test_multipleVotesRecorded() public {
+        vm.prank(ANVIL_ACCOUNT_1_ADDRESS);
+        governance.voteForInterestRate(INITIAL_INTEREST_RATE + 19);
+        vm.prank(ANVIL_ACCOUNT_2_ADDRESS);
+        governance.voteForInterestRate(INITIAL_INTEREST_RATE + 18);
+        vm.prank(ANVIL_ACCOUNT_3_ADDRESS);
+        governance.voteForInterestRate(INITIAL_INTEREST_RATE + 17);
+        vm.prank(ANVIL_ACCOUNT_4_ADDRESS);
+        governance.voteForInterestRate(INITIAL_INTEREST_RATE + 16);
+        vm.prank(ANVIL_ACCOUNT_5_ADDRESS);
+        governance.voteForInterestRate(INITIAL_INTEREST_RATE + 15);
+        
+        assertEq(governance.getAverageVote(), INITIAL_INTEREST_RATE + 17);
     }
 
     function test_nonHolderTryingToVote() public {

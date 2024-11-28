@@ -50,6 +50,21 @@ contract Governance {
         require(voters.length > 0, "No votes cast yet...");
 
         uint256 sum = 0;
+        uint256 weightSum = 0;
+
+        for (uint256 index = 0; index < voters.length; index++) {
+            uint256 weight = govToken.balanceOf(voters[index]);
+            sum += votesForInterestRate[voters[index]].proposedRate * weight;
+            weightSum += weight;
+        }
+
+        return sum / weightSum;
+    }
+
+    function getAverageVote() external view returns (uint256) {
+        require(voters.length > 0, "No votes cast yet...");
+
+        uint256 sum = 0;
 
         for (uint256 index = 0; index < voters.length; index++) {
             sum += votesForInterestRate[voters[index]].proposedRate;
