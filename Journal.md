@@ -20,4 +20,5 @@ So, the plan is to build a simple contract with:
 7. Modified the `GovToken` constructor to accept a memory array of holder addresses, passed from the `run()` function in the script contract.
 8. Faced issues sorting contract addresses for testing but skipped tests temporarily to test deployments locally on Anvil.
 9. Resolved testing issues and successfully deployed contracts with tests running on a local Anvil instance.
+10. Add a gatekeeper scanning for tokenholders! Already done - only tokenholders can vote! Now let's add the arithmetic to consider voting power when calculating the rate.
 
