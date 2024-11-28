@@ -24,12 +24,16 @@ contract GovernanceTest is Test {
     address private constant ANVIL_ACCOUNT_9_ADDRESS = 0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f;
     address private constant ANVIL_ACCOUNT_10_ADDRESS = 0xa0Ee7A142d267C1f36714E4a8F75612F20a79720;
 
-    uint256 private constant INITIAL_INTEREST_RATE = 333;
+    uint256 private constant INITIAL_INTEREST_RATE = 400;
 
     function setUp() public {
         deployGovernance = new DeployGovernance();
         (governance, govToken) = deployGovernance.run();
         governance.setInterestRate(INITIAL_INTEREST_RATE);
+    }
+
+    function test_totalSupply() public view {
+      assertEq(govToken.totalSupply(), 5284);
     }
 
     function test_gettingRate() public view {
@@ -43,8 +47,8 @@ contract GovernanceTest is Test {
         assertEq(governance.getInterestRate(), new_rate);
     }
 
-    function test_balance() public {
-        assertEq(govToken.balanceOf(ANVIL_ACCOUNT_1_ADDRESS), 743);
+    function test_balance() public view {
+        assertEq(govToken.balanceOf(ANVIL_ACCOUNT_1_ADDRESS), 123);
     }
 
     function test_voteRecorded() public {
@@ -56,7 +60,6 @@ contract GovernanceTest is Test {
     }
 
     function test_weightedAverage() public {
-      vm.skip(true); // TODO: first ensure non-uniform distribution of tokens within the GovernanceToken contract to really test this!
         vm.prank(ANVIL_ACCOUNT_1_ADDRESS);
         governance.voteForInterestRate(INITIAL_INTEREST_RATE + 19);
         vm.prank(ANVIL_ACCOUNT_2_ADDRESS);
@@ -67,8 +70,18 @@ contract GovernanceTest is Test {
         governance.voteForInterestRate(INITIAL_INTEREST_RATE + 16);
         vm.prank(ANVIL_ACCOUNT_5_ADDRESS);
         governance.voteForInterestRate(INITIAL_INTEREST_RATE + 15);
-        
-        assertEq(governance.tallyVotes(), INITIAL_INTEREST_RATE + 17);
+        vm.prank(ANVIL_ACCOUNT_6_ADDRESS);
+        governance.voteForInterestRate(INITIAL_INTEREST_RATE + 14);
+        vm.prank(ANVIL_ACCOUNT_7_ADDRESS);
+        governance.voteForInterestRate(INITIAL_INTEREST_RATE + 13);
+        vm.prank(ANVIL_ACCOUNT_8_ADDRESS);
+        governance.voteForInterestRate(INITIAL_INTEREST_RATE + 12);
+        vm.prank(ANVIL_ACCOUNT_9_ADDRESS);
+        governance.voteForInterestRate(INITIAL_INTEREST_RATE + 11);
+        vm.prank(ANVIL_ACCOUNT_10_ADDRESS);
+        governance.voteForInterestRate(INITIAL_INTEREST_RATE + 10);
+
+        assertEq(governance.tallyVotes(), INITIAL_INTEREST_RATE + 14);
     }
 
     function test_multipleVotesRecorded() public {
@@ -82,7 +95,7 @@ contract GovernanceTest is Test {
         governance.voteForInterestRate(INITIAL_INTEREST_RATE + 16);
         vm.prank(ANVIL_ACCOUNT_5_ADDRESS);
         governance.voteForInterestRate(INITIAL_INTEREST_RATE + 15);
-        
+
         assertEq(governance.getAverageVote(), INITIAL_INTEREST_RATE + 17);
     }
 

@@ -12,7 +12,6 @@ contract DeployGovernanceToken is Script {
 
     function run() public returns (GovernanceToken) {
         address[] memory holders = new address[](10);
-
         holders[0] = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
         holders[1] = 0x70997970C51812dc3A010C7d01b50e0d17dc79C8;
         holders[2] = 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC;
@@ -24,8 +23,20 @@ contract DeployGovernanceToken is Script {
         holders[8] = 0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f;
         holders[9] = 0xa0Ee7A142d267C1f36714E4a8F75612F20a79720;
 
+        uint256[] memory amounts = new uint256[](10);
+        amounts[0] = 123;
+        amounts[1] = 456;
+        amounts[2] = 789;
+        amounts[3] = 101;
+        amounts[4] = 112;
+        amounts[5] = 131;
+        amounts[6] = 415;
+        amounts[7] = 161;
+        amounts[8] = 718;
+        amounts[9] = 192;
+
         vm.broadcast();
-        govToken = new GovernanceToken(holders);
+        govToken = new GovernanceToken(holders, amounts);
         return govToken;
     }
 }

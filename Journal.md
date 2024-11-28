@@ -9,6 +9,8 @@ So, the plan is to build a simple contract with:
     - deploy this to anvil!
     - deploy to sepolia
     - write tests to test writing a value 
+- scan with gitleaks prior to pushing the repo to remote!
+
 
 ## Progress
 1. Successfully sent 1 ether using `cast send` from Anvil's first account to address 0, effectively burning the ether. Next, deployed the contract to Anvil.
@@ -21,4 +23,6 @@ So, the plan is to build a simple contract with:
 8. Faced issues sorting contract addresses for testing but skipped tests temporarily to test deployments locally on Anvil.
 9. Resolved testing issues and successfully deployed contracts with tests running on a local Anvil instance.
 10. Add a gatekeeper scanning for tokenholders! Already done - only tokenholders can vote! Now let's add the arithmetic to consider voting power when calculating the rate.
-
+11. I'm not sure how accurate it is, but weighted mean seems to be implemented. I will need to recheck the math once again.
+12. Next let's install gitleaks
+13. 

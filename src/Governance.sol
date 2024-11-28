@@ -25,7 +25,7 @@ contract Governance {
         return interestRate;
     }
 
-    function getMyProposedRate() external view returns(uint256) {
+    function getMyProposedRate() external view returns (uint256) {
         return votesForInterestRate[msg.sender].proposedRate;
     }
 
